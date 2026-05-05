@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker</title>
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>(: Cookie Clicker :)</h1>
+        
+        <div class="stats-display">
+            <p id="points">0</p>
+            <p id="pps">PPS: 0</p>
+            <p id="clicks">Clicks: 0</p>
+            <p id="combo">Combo: x1</p>
+            <p id="voidPoints" class="hidden-stat">Void: 0</p>
+        </div>
+        
+        <div id="notification" class="notification hidden"></div>
+        <button id="goldenCookie" class="golden-cookie hidden" aria-label="Golden Cookie"></button>
+        
+        <div id="click" class="click-button"></div>
+        <div id="floating-text-container"></div>
+        
+        <div class="upgrades-section">
+            <div class="upgrade-item">
+                <button id="upgradeClickPower" class="upgrade-btn">Click Boost (10 pts)</button>
+                <button id="upgradeClickPowerMax" class="max-btn">Max x0</button>
+            </div>
+            <div class="upgrade-item">
+                <button id="upgradeAutoClicker" class="upgrade-btn">Auto-Clicker (50 pts)</button>
+                <button id="upgradeAutoClickerMax" class="max-btn">Max x0</button>
+            </div>
+            <div class="upgrade-item">
+                <button id="upgradeMultiplier" class="upgrade-btn">Click Multiplier (100 pts)</button>
+                <button id="upgradeMultiplierMax" class="max-btn">Max x0</button>
+            </div>
+            <div class="upgrade-item">
+                <button id="prestigeBtn" class="prestige-btn">Prestige (Need 100,000 pts)</button>
+                <p id="prestigeInfo" class="meta-info">Prestige: 0 | Bonus: x1</p>
+            </div>
+            <div class="upgrade-item">
+                <button id="ascendBtn" class="ascend-btn">Ascend (Need 1,000,000 pts)</button>
+                <p id="ascendInfo" class="meta-info">Ascensions: 0 | Void bonus: x1</p>
+            </div>
+            <div class="upgrade-item">
+                <button id="voidUpgradeBtn" class="void-btn">Void Upgrade</button>
+                <p id="voidUpgradeInfo" class="meta-info">No void upgrade available yet</p>
+            </div>
+            <button id="resetBtn" class="reset-btn">Reset Game</button>
+        </div>
+
+        <div class="meta-panels">
+            <div class="panel" id="achievementsPanel">
+                <h2>Achievements</h2>
+                <p id="achievementSummary">0 unlocked | +0% bonus</p>
+                <ul id="achievementsList"></ul>
+            </div>
+            <div class="panel" id="questsPanel">
+                <h2>Quest</h2>
+                <p id="questDescription">No quest yet</p>
+                <p id="questProgress">Progress: 0/0</p>
+                <p id="questReward">Reward: 0 pts</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
