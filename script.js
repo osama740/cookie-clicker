@@ -180,6 +180,13 @@ function computeUpgradeCost(key, level) {
     return Math.ceil(upgrades.multiplier.baseCost * Math.pow(1.25, level));
 }
 
+const LEGACY_STORAGE_KEY = 'cookieClickerGame';
+
+function getStorageKey() {
+    const path = (window.location.pathname || '/index.html').toLowerCase();
+    return LEGACY_STORAGE_KEY + ':' + path;
+}
+
 // Save/load
 function saveGame() {
     const gameState = {
@@ -197,14 +204,21 @@ function saveGame() {
         unlockedAchievements: Array.from(unlockedAchievements),
         currentQuest
     };
-    localStorage.setItem('cookieClickerGame', JSON.stringify(gameState));
+    localStorage.setItem(getStorageKey(), JSON.stringify(gameState));
 }
 
 function loadGame() {
-    const savedGame = localStorage.getItem('cookieClickerGame');
+    const scopedKey = getStorageKey();
+    const savedGame = localStorage.getItem(scopedKey) || localStorage.getItem(LEGACY_STORAGE_KEY);
     if (!savedGame) return;
 
-    const gameState = JSON.parse(savedGame);
+    let gameState;
+    try {
+        gameState = JSON.parse(savedGame);
+    } catch {
+        return;
+    }
+
     score = Number(gameState.score) || 0;
     fractionalScore = Number(gameState.fractionalScore) || 0;
     totalClicks = Number(gameState.totalClicks) || 0;
@@ -228,6 +242,10 @@ function loadGame() {
             reward: Number(gameState.currentQuest.reward) || 0,
             completed: Boolean(gameState.currentQuest.completed)
         };
+    }
+
+    if (!localStorage.getItem(scopedKey)) {
+        localStorage.setItem(scopedKey, savedGame);
     }
 }
 
@@ -810,7 +828,8 @@ function resetGame() {
     hideGoldenCookie();
     rollQuest();
 
-    localStorage.removeItem('cookieClickerGame');
+    localStorage.removeItem(getStorageKey());
+    localStorage.removeItem(LEGACY_STORAGE_KEY);
     updateDisplay();
     showNotification('Game reset complete.');
 }
